@@ -6,7 +6,7 @@ CashSign server is an example application to demonstrate how you may utilize the
 
 ```
 pip install -r requirements.txt
-flask init-db
+./init.sh
 
 # modify config to support rpc
 $(EDITOR) ~/.electron-cash/config
