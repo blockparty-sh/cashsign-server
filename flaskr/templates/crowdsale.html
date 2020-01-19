@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="starter-template">
+  <h1>Vires Crowdsale!</h1>
+  <p class="lead">Use this page to perform a CashSign txn request. By clicking the buttons below your wallet will open and ask you to confirm the signing transactions.</p>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Buy</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="simpleledger:?cashsign-type=txn&cashsign-callbackurl=http://localhost:5000/crowdsale-callback&cashsign-data=0xEEE" class="btn btn-lg btn-primary">Buy</a></td>
+            <td>21 Vires</td>
+            <td>0.00100000</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock %}

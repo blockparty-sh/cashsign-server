@@ -102,6 +102,50 @@ def create_app(test_config=None):
     def admin():
         return render_template('admin.html', users=db.get_users())
 
+    @app.route('/crowdsale')
+    def crowdsale():
+        return render_template('crowdsale.html')
+
+    @app.route('/crowdsale-callback')
+    def crowdsaleCallback():
+        # contains signed data 
+        sigdata = request.args.get('payload')
+
+        if sigdata is None:
+            return jsonify({ 'success': False })
+
+        # here we verify the signed transaction
+        # we use ec-slp rpc
+        # you could also do this in browser using bitcore-message
+        rpc_payload = {
+            "method": "broadcast",
+            "params": [
+                sigdata
+            ],
+            "jsonrpc": "2.0",
+            "id": 0,
+        }
+
+        RPC_USER = os.getenv('RPC_USER')
+        RPC_PASS = os.getenv('RPC_PASS')
+        RPC_HOST = os.getenv('RPC_HOST')
+        RPC_PORT = os.getenv('RPC_PORT')
+        url = 'http://'+RPC_USER+':'+RPC_PASS+'@'+RPC_HOST+':'+RPC_PORT
+
+        print(url)
+        resp = requests.post(url, json=rpc_payload).json()
+
+        success = resp['result']
+
+        return jsonify({
+            'success': success,
+            'debug': {
+                'resp': resp,
+                'rpc_payload': rpc_payload,
+                'sigdata': sigdata
+            }
+        })
+
 
     return app
 
