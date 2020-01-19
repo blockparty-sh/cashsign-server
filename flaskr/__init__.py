@@ -1,6 +1,7 @@
 import os
 import requests
 import json
+from . import db, settings
 
 
 from flask import (
@@ -33,7 +34,6 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    from . import db
     db.init_app(app)
 
     # a simple page that says hello
@@ -55,6 +55,8 @@ def create_app(test_config=None):
         if address is None:
             return jsonify({ 'success': False })
 
+        message = 'hello world'
+
 
         # here we verify the signed transaction
         # we use ec-slp rpc
@@ -64,16 +66,27 @@ def create_app(test_config=None):
             "params": [
                 address,
                 sigdata,
-                "message that will be signed"
+                message
             ],
             "jsonrpc": "2.0",
             "id": 0,
         }
 
-        resp = requests.post('http://user:0yHrDvvXBHT8cccr9G-cRA==@127.0.0.1:7777', json=rpc_payload).json()
+        RPC_USER = os.getenv('RPC_USER')
+        RPC_PASS = os.getenv('RPC_PASS')
+        RPC_HOST = os.getenv('RPC_HOST')
+        RPC_PORT = os.getenv('RPC_PORT')
+        url = 'http://'+RPC_USER+':'+RPC_PASS+'@'+RPC_HOST+':'+RPC_PORT
 
-        print(resp['error'])
-        success = True
+        print(url)
+        resp = requests.post(url, json=rpc_payload).json()
+
+        success = resp['result']
+
+        if success == True:
+            print("add user:")
+            print(db.add_user(address, message, sigdata))
+
 
         return jsonify({
             'success': success,
@@ -84,6 +97,11 @@ def create_app(test_config=None):
                 'address': address
             }
         })
+
+    @app.route('/admin')
+    def admin():
+        return render_template('admin.html', users=db.get_users())
+
 
     return app
 

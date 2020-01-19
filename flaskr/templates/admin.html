@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="starter-template">
+  <h1>Admin panel</h1>
+  <p class="lead">View all users who have signed recently</p>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Type</th>
+            <th scope="col">Message</th>
+            <th scope="col">Signature</th>
+            <th scope="col">Address</th>
+            <th scope="col">Created At</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user['cashsigntype'] }}</td>
+                <td>{{ user['message'] }}</td>
+                <td>{{ user['sig'] }}</td>
+                <td>{{ user['address'] }}</td>
+                <td>{{ user['created_at'] }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{% block fscript %}
+<script>
+    $('#address').change(function() {
+        var special_msg = 'message that will be signed';
+        $('#link').attr('href', 'simpledger://'+$('#address').val()+'?cashsign-type=utf8&cashsign-data='+special_msg+'&cashsign-callbackurl=http://localhost:5000/cashsign-callback');
+    });
+</script>
+{% endblock %}

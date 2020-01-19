@@ -26,6 +26,20 @@ def close_db(e=None):
     if db is not None:
         db.close()
 
+def add_user(address, message, sig):
+    db = get_db()
+    db.execute(
+        'INSERT INTO approved_addresses (cashsigntype, message, sig, address)'
+        'VALUES ("utf8", ?, ?, ?)', [
+        message,
+        sig,
+        address
+    ])
+    db.commit()
+
+def get_users():
+    db = get_db()
+    return db.execute('SELECT * from approved_addresses')
 
 @click.command('init-db')
 @with_appcontext
