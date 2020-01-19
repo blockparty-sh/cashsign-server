@@ -44,13 +44,13 @@ def create_app(test_config=None):
     @app.route('/cashsign-callback')
     def cashsignCallback():
         # contains signed data 
-	sigdata = request.args.get('payload')
+        sigdata = request.args.get('payload')
 
         if sigdata is None:
             return jsonify({ 'success': False })
 
         # contains address we signed
-	address = request.args.get('address')
+        address = request.args.get('address')
 
         if address is None:
             return jsonify({ 'success': False })
@@ -76,14 +76,14 @@ def create_app(test_config=None):
         success = True
 
         return jsonify({
-	    'success': success,
-	    'debug': {
+            'success': success,
+            'debug': {
                 'resp': resp,
-		'rpc_payload': rpc_payload,
+                'rpc_payload': rpc_payload,
                 'sigdata': sigdata,
                 'address': address
-	    }
-	})
+            }
+        })
 
     return app
 
