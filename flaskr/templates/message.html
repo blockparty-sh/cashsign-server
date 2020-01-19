@@ -9,18 +9,29 @@
 <form class="form-signin">
   <label for="address" class="sr-only">Address</label>
   <input type="text" id="address" class="form-control" placeholder="simpleledger:xxx" required autofocus>
-  <!-- <label for="inputMessage" class="sr-only">Password</label> -->
-  <input type="text" id="data" class="form-control" value="message that will be signed" hidden>
+  <input type="text" id="data" class="form-control" value="hello world" hidden>
   <br>
-  <a class="btn btn-lg btn-primary btn-block" href="simpledger://qzyp3sqdfdry8q3d67n3hjluc3r7km47xq28smxth4?cashsign-type=message&cashsign-data=data&cashsign-callback-url=http://localhost:5000/cashsign-callback" id="link">Sign</a>
+  <a class="btn btn-lg btn-primary btn-block" href="simpledger:qzyp3sqdfdry8q3d67n3hjluc3r7km47xq28smxth4?cashsign-type=message&cashsign-data=data&cashsign-callback-url=http://localhost:5000/cashsign-callback" id="link">Sign</a>
 </form>
 {% endblock %}
 
 {% block fscript %}
 <script>
+    function ascii_to_hexa(str) {
+        var arr1 = [];
+
+        for (var n = 0, l = str.length; n < l; n ++) {
+        	var hex = Number(str.charCodeAt(n)).toString(16);
+        	arr1.push(hex);
+        }
+
+        return '0x'+arr1.join('');
+    }
+
     $('#address').change(function() {
-        var special_msg = 'message that will be signed';
-        $('#link').attr('href', 'simpledger://'+$('#address').val()+'?cashsign-type=utf8&cashsign-data='+special_msg+'&cashsign-callbackurl=http://localhost:5000/cashsign-callback');
+        var special_msg = ascii_to_hexa('hello world');
+
+        $('#link').attr('href', $('#address').val()+'?cashsign-type=utf8&cashsign-data='+special_msg+'&cashsign-callbackurl=http://localhost:5000/cashsign-callback');
     });
 </script>
 {% endblock %}
