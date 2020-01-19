@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="starter-template">
+  <h1>Prove yourself!</h1>
+  <p class="lead">Use this page to perform a CashSign message request. By clicking the button below your wallet will open and ask you to confirm the message signing.</p>
+</div>
+
+<form class="form-signin">
+  <label for="address" class="sr-only">Address</label>
+  <input type="text" id="address" class="form-control" placeholder="simpleledger:xxx" required autofocus>
+  <!-- <label for="inputMessage" class="sr-only">Password</label> -->
+  <input type="text" id="data" class="form-control" value="message that will be signed" hidden>
+  <br>
+  <a class="btn btn-lg btn-primary btn-block" href="simpledger://qzyp3sqdfdry8q3d67n3hjluc3r7km47xq28smxth4?cashsign-type=message&cashsign-data=data&cashsign-callback-url=http://localhost:5000/cashsign-callback" id="link">Sign</a>
+</form>
+{% endblock %}
+
+{% block fscript %}
+<script>
+    $('#address').change(function() {
+        var special_msg = 'message that will be signed';
+        $('#link').attr('href', 'simpledger://'+$('#address').val()+'?cashsign-type=utf8&cashsign-data='+special_msg+'&cashsign-callbackurl=http://localhost:5000/cashsign-callback');
+    });
+</script>
+{% endblock %}

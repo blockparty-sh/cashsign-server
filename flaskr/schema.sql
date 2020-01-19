@@ -1,0 +1,7 @@
+DROP TABLE IF EXISTS approved_addresses;
+
+CREATE TABLE approved_addresses (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    address TEXT UNIQUE NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+)
