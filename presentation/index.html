@@ -43,7 +43,7 @@
 			<div class="slides">
 				<section>
 					<h1>CashSign</h1>
-					<h3>Cash Contract signing protocol</h3>
+					<h3>A signing protocol for trustless token crowdsales, and more!</h3>
 					<p>
 						<small>Created by <a href="https://slp.cash">slp.cash</a> developers on Bitcoin Cash.</small>
 					</p>
@@ -52,7 +52,7 @@
 				<section>
 					<h2>Trusted services suck</h2>
 					<p>
-						Building decentralized applications is difficult and error prone, requiring lots of testing. How would Bitcoin look today if it was easier than building centralized trusted applications?
+						Building decentralized apps is difficult requiring lots of testing. How would Bitcoin look today if it was easier than building centralized trusted applications?
 					</p>
 				</section>
 
@@ -74,12 +74,12 @@
 				<section>
 					<h2>What we built</h2>
 					<ul>
-						<li>An extension to the simpleledger URI scheme to support signing messages and transactions.</li>
-						<li>A fork of Electron Cash SLP Edition (Electrum Wallet fork on BCH) which supports the new URI scheme</li>
-						<li>A web app which demos a simple signing of messages</li>
+						<li>A URI scheme to support bitcoin signing using wallets.</li>
+						<li>A demo implementation of the URI scheme, in Electron Cash SLP Edition</li>
+						<li>A web app to demonstrate signing of messages</li>
 						<li>A SLP token called vires</li>
-						<li>A trustless crowdsale of vires that demonstrates the possibilities for partially signed transactions</li>
-
+						<li>A trustless crowdsale of vires to demonstrate interaction with partially signed transactions</li>
+					</ul>
 				</section>
 
 				<section>
@@ -118,7 +118,6 @@ simpledger:qzyp3sqdfdry8q3d67n3hjluc3r7km47xq28smxth4
 					</code></pre>
 					<p>For transaction signing (token swaps, crowdsales, etc)</p>
 					<pre><code class="hljs">
-TODO
 simpledger:qzyp3sqdfdry8q3d67n3hjluc3r7km47xq28smxth4
 ?cashsign-type=txn
 &cashsign-data=0x[FULL TX HEX HERE]
